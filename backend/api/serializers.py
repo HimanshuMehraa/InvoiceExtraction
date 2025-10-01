@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note
+from .models import Note, Invoice
+import os
+
 
 #Serializer-> TAKES python obj and converts to JSON data
 
@@ -21,3 +23,23 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
         fields = ["id", "title", "content", "created_at", "author"]
         extra_kwargs = {"author": {"read_only": True}}
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    filename = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Invoice
+        fields = [
+            "id",
+            "filename",
+            "invoice_date",
+            "invoice_number",
+            "amount",
+            "due_date",
+            "extracted",
+        ]
+
+    def get_filename(self, obj):
+        if obj.file:
+            return os.path.basename(obj.file.name)
+        return None

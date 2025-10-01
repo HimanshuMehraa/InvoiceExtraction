@@ -5,6 +5,7 @@ import Register from "./pages/Register"
 import NotFound from "./pages/NotFound"
 import Home from "./pages/Home"
 import ProtectedRoute from "./components/ProtectedRoutes"
+import PdfUpload from "./components/PdfUpload"
 
 function Logout(){
   localStorage.clear()
@@ -28,6 +29,7 @@ function App() {
     />
     <Route path='/login' element= {<Login/>}/>
     <Route path='/register' element= {<RegisterAndLogout/>}/>
+    <Route path='/upload' element= {<PdfUpload/>}/>
     <Route path='*' element= {<NotFound/>}/>
   </Routes>
 </BrowserRouter>
